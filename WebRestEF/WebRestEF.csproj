@@ -20,4 +20,5 @@
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="10.23.26400" />
   </ItemGroup>
 
+
 </Project>

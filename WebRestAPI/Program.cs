@@ -1,4 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using WebRest.EF.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 
@@ -10,6 +14,19 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddOpenApi();
 
 builder.Services.AddSwaggerGen();
+
+var connectionString = builder.Configuration.GetConnectionString("WebRestOracleConnection");
+
+builder.Services.AddDbContext<WebRestOracleContext> (options => options.UseOracle(connectionString) 
+.UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole())));
+
+var loggerFactory = LoggerFactory.Create(builder =>
+{
+builder.AddFilter("Microsoft", LogLevel.Warning)
+.AddFilter("System", LogLevel.Warning)
+.AddFilter("SampleApp.Program", LogLevel.Debug)
+.AddConsole();
+});
 
 var app = builder.Build();
 
