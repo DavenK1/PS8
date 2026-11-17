@@ -1,12 +1,13 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebRest.EF.Data;
 using WebRest.EF.Models;
+using WebRestAPI.Controllers;
 
 namespace gen.WebRest.Controllers
 {
@@ -15,16 +16,20 @@ namespace gen.WebRest.Controllers
     public class AddressController : ControllerBase
     {
         private readonly WebRestOracleContext _context;
+        private readonly ILogger<AddressController> _logger;
 
-        public AddressController(WebRestOracleContext context)
+        public AddressController(WebRestOracleContext context, ILogger<AddressController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/Address
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Address>>> GetAddress()
         {
+            _logger.LogInformation("This message is captured by log4net!");
+            _logger.LogError("This is an error log handled by log4net.");
             return await _context.Address.ToListAsync();
         }
 

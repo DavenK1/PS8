@@ -45,7 +45,7 @@ namespace gen.WebRest.Controllers
         // PUT: api/AspNetUserPasskeys/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAspNetUserPasskeys(Byte[] id, AspNetUserPasskeys aspNetUserPasskeys)
+        public async Task<IActionResult> PutAspNetUserPasskeys([FromRoute] byte[] id, AspNetUserPasskeys aspNetUserPasskeys)
         {
             if (id != aspNetUserPasskeys.CredentialId)
             {
